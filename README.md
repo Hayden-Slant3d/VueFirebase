@@ -44,3 +44,6 @@ To preview the production build:
 ```sh
 npm run preview
 ```
+
+# Documentation
+This project is well-documented with JSdoc comments. Refer to the code files for more details.
