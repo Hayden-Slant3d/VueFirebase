@@ -29,6 +29,8 @@ Next, install the project dependencies.
 ```sh
 npm i
 ```
+Next, update the firebaseConfig with your firebaseConfig
+instructions are within the firebase.js file
 # Running the Project
 
 To start the development server:
