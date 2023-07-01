@@ -16,7 +16,7 @@ class AccountService {
             if (password.length < 6) {
                 throw new Error('Password must be atleast 6 characters long.')
             }
-            if (password.toLocaleLowerCase() == password) {
+            if (password.toLowerCase() == password) {
                 throw new Error('Password must contain at least 1 captilized character.')
             }
             if (!email.includes('@')) {
