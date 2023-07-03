@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { AuthGuard } from './services/AuthService'
 
 /**
@@ -30,7 +30,7 @@ const routes = [
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
-    beforeEnter: AuthGuard // THIS IS WHAT I AM WANTING TO ADD
+    beforeEnter: AuthGuard
   }
 ]
 
@@ -41,6 +41,6 @@ const routes = [
 export const router = createRouter({
   linkActiveClass: 'router-link-active',
   linkExactActiveClass: 'router-link-exact-active',
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })

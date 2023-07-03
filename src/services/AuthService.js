@@ -2,6 +2,7 @@ import { auth } from '../firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { AppState } from '../AppState.js'
 import { Pop } from '../utils/Pop.js';
+import { watch } from 'vue';
 
 
 /**
@@ -12,11 +13,23 @@ import { Pop } from '../utils/Pop.js';
  * Call `next` with the path to redirect to, or `false` to abort.
  */
 export function AuthGuard(to, from, next) {
+    if (AppState.isLoading) {
+        const unwatch = watch(
+            () => AppState.isLoading,
+            (isLoading) => {
+                if (!isLoading) {
+                    unwatch();
+                    AuthGuard(to, from, next);
+                }
+            }
+        );
+        return;
+    }
+
     if (Object.keys(AppState.user).length > 0) {
         next();
     } else {
-        Pop.error('You are unauthorized to view this page')
-        next('/');
+        next('/login');
     }
 }
 
@@ -28,11 +41,10 @@ export function AuthGuard(to, from, next) {
 export function setupAuthListener() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in, update AppState.user
             AppState.user = user;
         } else {
-            // No user is signed in, clear AppState.user
             AppState.user = {};
         }
+        AppState.isLoading = false; // Set loading to false when auth state is resolved
     });
 }
