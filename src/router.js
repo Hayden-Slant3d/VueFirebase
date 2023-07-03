@@ -18,19 +18,22 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadPage('HomePage')
+    component: loadPage('HomePage'),
+    meta: { requiresAuth: false }
   },
   {
     path: '/test',
     name: 'Test',
     component: loadPage('TestPage'),
-    beforeEnter: AuthGuard
+    beforeEnter: AuthGuard,
+    meta: { requiresAuth: true }
   },
   {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
-    beforeEnter: AuthGuard
+    beforeEnter: AuthGuard,
+    meta: { requiresAuth: true }
   }
 ]
 

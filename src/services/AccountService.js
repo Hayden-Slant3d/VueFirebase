@@ -75,13 +75,14 @@ class AccountService {
      * Sign out the current authenticated user
      */
     async signOut() {
-        try {
-            await signOut(auth)
-        }
-        catch (error) {
-            logger.error(error)
-            Pop.error(error)
-        }
+        auth.signOut().then(() => {
+            AppState.user = {}
+            if (router.currentRoute.value.meta.requiresAuth) {
+                router.push('/login')
+            }
+        }).catch((error) => {
+            console.error('Error signing out', error)
+        })
     }
 
     /**
